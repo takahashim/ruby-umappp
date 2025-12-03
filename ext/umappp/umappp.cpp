@@ -5,7 +5,6 @@
 
 #include <rice/rice.hpp>
 #include <rice/stl.hpp>
-#include <ruby/thread.h>
 #include <exception>
 #include <string>
 #include "numo.hpp"
