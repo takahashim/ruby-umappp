@@ -9,7 +9,7 @@ jobs:
       matrix:
         os:   [ 'ubuntu', 'macos', 'windows' ]
         ruby: [ '3.2', '3.3', '3.4' ]
-        rice: [ '~> 4.6.0', '~> 4.7.0' ]
+        rice: [ '~> 4.5.0',  '~> 4.6.0', '~> 4.7.0' ]
     # TODO: Remove continue-on-error and Windows skip conditions once numo-narray releases a fix for Windows
     continue-on-error: ${{ matrix.os == 'windows' }}
     env:
