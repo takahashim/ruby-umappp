@@ -2,21 +2,26 @@ name: test
 on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
-    name: ${{ matrix.os }} Ruby ${{ matrix.ruby }}
+    name: ${{ matrix.os }} Ruby ${{ matrix.ruby }} rice ${{ matrix.rice }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
         os:   [ 'ubuntu', 'macos', 'windows' ]
         ruby: [ '3.2', '3.3', '3.4' ]
+        rice: [ '~> 4.6.0', '~> 4.7.0' ]
     # TODO: Remove continue-on-error and Windows skip conditions once numo-narray releases a fix for Windows
     continue-on-error: ${{ matrix.os == 'windows' }}
+    env:
+      RICE_VERSION: ${{ matrix.rice }}
     steps:
     - uses: actions/checkout@v6
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
+        cache-version: ${{ matrix.rice }}
+    - run: bundle install
     - run: bundle exec rake compile
       if: ${{ runner.os != 'Windows' }}
     - run: bundle exec rake test
